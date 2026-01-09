@@ -52,7 +52,14 @@ class GoXLRUtilityEntity(CoordinatorEntity[GoXLRUtilityDataUpdateCoordinator]):
         self._hw_version = ".".join(
             [str(item) for item in coordinator.data.hardware.usb_device.version]
         )
+        # On macOS, serial_number may be None - use a fallback identifier
         self._identifier = coordinator.data.hardware.serial_number
+        if self._identifier is None:
+            self._identifier = (
+                f"{coordinator.data.hardware.usb_device.manufacturer_name}_"
+                f"{coordinator.data.hardware.usb_device.product_name}_"
+                f"{entry_data[CONF_HOST]}_{entry_data[CONF_PORT]}"
+            )
         self._manufacturer = coordinator.data.hardware.usb_device.manufacturer_name
         self._model = coordinator.data.hardware.usb_device.product_name
 

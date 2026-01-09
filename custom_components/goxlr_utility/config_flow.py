@@ -63,9 +63,18 @@ async def validate_input(
     listener_task.cancel()
     await websocket_client.disconnect()
 
+    # On macOS, serial_number may be None - use a fallback identifier
+    identifier = mixer.hardware.serial_number
+    if identifier is None:
+        identifier = (
+            f"{mixer.hardware.usb_device.manufacturer_name}_"
+            f"{mixer.hardware.usb_device.product_name}_"
+            f"{data[CONF_HOST]}_{data[CONF_PORT]}"
+        )
+
     return {
         "title": f"{mixer.hardware.usb_device.manufacturer_name} - {mixer.hardware.usb_device.product_name}",
-        "identifier": mixer.hardware.serial_number,
+        "identifier": identifier,
     }
 
 
