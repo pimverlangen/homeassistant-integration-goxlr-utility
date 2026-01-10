@@ -75,6 +75,17 @@ async def async_setup_entry(
             )
         )
 
+    # Cough button engaged sensor
+    binary_sensor_descriptions.append(
+        GoXLRUtilityBinarySensorEntityDescription(
+            key="cough_button_engaged",
+            name="Cough button engaged",
+            icon="mdi:microphone-off",
+            value=lambda data: data.cough_button.state is not None
+            and data.cough_button.state != "Unmuted",
+        )
+    )
+
     entities = []
     for description in binary_sensor_descriptions:
         entities.append(
