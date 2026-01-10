@@ -75,11 +75,11 @@ async def async_setup_entry(
             )
         )
 
-    # Cough button engaged sensor
+    # Microphone muted sensor
     binary_sensor_descriptions.append(
         GoXLRUtilityBinarySensorEntityDescription(
             key="cough_button_engaged",
-            name="Cough button engaged",
+            name="Microphone muted",
             icon="mdi:microphone-off",
             value=lambda data: data.cough_button.state is not None
             and data.cough_button.state != "Unmuted",

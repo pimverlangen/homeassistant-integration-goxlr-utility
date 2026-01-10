@@ -1,0 +1,8 @@
+{
+  "name": "homeassistant-integration-goxlr-utility-devcontainer",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
+  },
+  "postCreateCommand": "claude --version || true"
+}
